@@ -30,7 +30,7 @@
 - `m28` (home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level)
 - `m500` to save the settings if you have EEPROM enabled in your configuration.h. (If you dont use EEPROM then you will need to auto level each time you restart your printer)
 
-Try printing a calibration cube! (I use this http://www.thingiverse.com/thing:24238)
+Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiverse.com/thing:56671 )
 
 |Property|Value|Notes|
 |--------|-----|-----|
