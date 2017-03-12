@@ -28,7 +28,15 @@
     - `m500` to save the settings if you have EEPROM enabled in your configuration.h. (If you dont use EEPROM then you will need to auto level each time you restart your printer)
     
 Try printing a calibration cube! (I use this http://www.thingiverse.com/thing:24238)
-
-Examine the first layer. 
-
-You may need to tweek the bed springs.
+  - Line Width 0.4mm (for my 0.4mm nozzle)
+  - Initial Layer Height 0.1mm (this is the same for all my prints)
+  - Layer Height 0.2mm
+  - 2 Top and Bottom Layers. (Layer height * 2 = 0.4mm)
+  - 1 Wall (Line Width * 1 = 0.4mm)
+  - Infill 0%
+  - No Supports
+  - Print Speed 30mm/s
+  - Skirt Line Count 1
+  - Skirt Distance 8mm
+  
+Examine the first layer and tweek the bed springs ONLY if needed
