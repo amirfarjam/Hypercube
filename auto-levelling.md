@@ -29,10 +29,10 @@
     
 Try printing a calibration cube! (I use this http://www.thingiverse.com/thing:24238)
   - Line Width 0.4mm (for my 0.4mm nozzle)
-  - Initial Layer Height 0.1mm (this is the same for all my prints)
+  - Initial Layer Height 0.1mm (this tends to be the same for all my prints for the very first layer)
   - Layer Height 0.2mm
-  - 2 Top and Bottom Layers. (Layer height * 2 = 0.4mm)
-  - 1 Wall (Line Width * 1 = 0.4mm)
+  - 2 Top\Bottom Layer Count. (Layer height * Top\Bottom Layer Count = 0.4mm)
+  - 1 Wall Line Count (Line Width * Wall Line Count = 0.4mm)
   - Infill 0%
   - No Supports
   - Print Speed 30mm/s
