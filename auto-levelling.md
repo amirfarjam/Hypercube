@@ -45,4 +45,4 @@ Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiv
 |Skirt Line Count|1||
 |Skirt Distance|8mm||
 
-Examine the first layer and tweek the bed springs if needed
+Examine the first layer and tweek z layer offset (`m851 z*****`) and\or the bed springs if needed
