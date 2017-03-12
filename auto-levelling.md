@@ -17,6 +17,8 @@
 
 ##Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 3x3 grid)
 
+**Heat the hotend and bed before doing this**
+
 - `m851 z0` (Sets the z offset to 0)
 - `g28` (home all axes)
 - `g29` (runs auto bed level)
