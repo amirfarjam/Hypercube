@@ -11,9 +11,12 @@
 
 [LJ12A3-4-Z/BY PNP DC6-36V Inductive Proximity Sensor](http://www.banggood.com/LJ12A3-4-ZBY-PNP-DC6-36V-Inductive-Proximity-Sensor-Detection-Switch-p-982679.html?rmmds=myorder)
 
+Some work at 5V but from my experience it's best to run them according to their spec levels. 
+You can use a voltage divider to limit a higher voltage down to 5v if need be.
+
 - Put hotend nozzle flat to bed
-- Use a 1mm object to slide under the probe and now place probe just above the 1mm object. Making sure that when I remove the object the probe doesnt drop down.
-- Tighten probe nuts with two spanners or two pliers.
+- Use a 1mm object to slide under the probe and adjust the probe to be touching the top of the object. Make sure that when you remove the object the probe isn't resting on it and drops down when you pull away
+- Tighten probe nuts with spanners or pliers etc.
 
 ##Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 3x3 grid)
 
