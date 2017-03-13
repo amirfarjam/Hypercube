@@ -37,8 +37,8 @@ Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiv
 
 |Property|Value|Notes|
 |--------|-----|-----|
-|Line Width|0.4mm| for a 0.4mm nozzle|
-|Initial Layer Height|0.1mm| This setting is usually set per print (typically 0.1-0.3mm). Changes the bed adhesion for the part that is being printed print.|
+|Line Width|0.4mm|For a 0.4mm nozzle|
+|Initial Layer Height|0.1mm|This setting is usually set per print (typically 0.1-0.3mm). Changes the bed adhesion for the part that is being printed print. I like this set to 0.1 for levelling so I can adjust for different prints later|
 |Layer Height|0.2mm||
 |Top\Bottom Layer Count|2|Layer height * Top\Bottom Layer Count = 0.4mm|
 |Wall Line Count|1|Line Width * Wall Line Count = 0.4mm|
