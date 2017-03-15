@@ -500,7 +500,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 100 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 101 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -594,7 +594,7 @@
 //    O-- FRONT --+
 //  (0,0)
 #define X_PROBE_OFFSET_FROM_EXTRUDER 25  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 2 // Y offset: -front +behind [the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -2 // Y offset: -front +behind [the nozzle]
 #define Z_PROBE_OFFSET_FROM_EXTRUDER 0 // Z offset: -below +above  [the nozzle] M851 to set via gcode
 
 // X and Y axis travel speed (mm/m) between probes
@@ -726,7 +726,7 @@
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
-#define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
+#define min_software_endstops false // If true, axis won't move to coordinates less than HOME_POS.
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // @section machine
@@ -739,13 +739,15 @@
 #define Y_MAX_POS 215
 #define Z_MAX_POS 155
 
-//===========================================================================
-//========================= Filament Runout Sensor ==========================
-//===========================================================================
-//#define FILAMENT_RUNOUT_SENSOR // Uncomment for defining a filament runout sensor such as a mechanical or opto endstop to check the existence of filament
-                                 // RAMPS-based boards use SERVO3_PIN. For other boards you may need to define FIL_RUNOUT_PIN.
-                                 // It is assumed that when logic high = filament available
-                                 //                    when logic  low = filament ran out
+/**
+ * Filament Runout Sensor
+ * A mechanical or opto endstop is used to check for the presence of filament.
+ *
+ * RAMPS-based boards use SERVO3_PIN.
+ * For other boards you may need to define FIL_RUNOUT_PIN.
+ * By default the firmware assumes HIGH = has filament, LOW = ran out
+ */
+//#define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   #define FIL_RUNOUT_INVERTING false // set to true to invert the logic of the sensor.
   #define ENDSTOPPULLUP_FIL_RUNOUT // Uncomment to use internal pullup for filament runout pins if the sensor is defined.
@@ -814,13 +816,13 @@
  * Turn on with the command 'M111 S32'.
  * NOTE: Requires a lot of PROGMEM!
  */
-//#define DEBUG_LEVELING_FEATURE
+// #define DEBUG_LEVELING_FEATURE
 
 #if ENABLED(AUTO_BED_LEVELING_LINEAR) || ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define ABL_GRID_POINTS_X 3
-  #define ABL_GRID_POINTS_Y ABL_GRID_POINTS_X
+  #define ABL_GRID_MAX_POINTS_X 3
+  #define ABL_GRID_MAX_POINTS_Y ABL_GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
   #define PROBE_BED_INSET 30
@@ -902,7 +904,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (2*60)
+#define HOMING_FEEDRATE_Z  (4*60)
 
 //=============================================================================
 //============================= Additional Features ===========================
@@ -994,13 +996,13 @@
 //
 // Available list of patterns:
 //   P0: This is the default pattern, this process requires a sponge type
-//       material at a fixed bed location, the cleaning process is based on
-//       "strokes" i.e. back-and-forth movements between the starting and end
-//       points.
+//       material at a fixed bed location. S defines "strokes" i.e.
+//       back-and-forth movements between the starting and end points.
 //
 //   P1: This starts a zig-zag pattern between (X0, Y0) and (X1, Y1), "T"
 //       defines the number of zig-zag triangles to be done. "S" defines the
-//       number of strokes aka one back-and-forth movement. As an example
+//       number of strokes aka one back-and-forth movement. Zig-zags will
+//       be performed in whichever dimension is smallest. As an example,
 //       sending "G12 P1 S1 T3" will execute:
 //
 //          --
@@ -1013,6 +1015,10 @@
 //                       |________|_________|_________|
 //                           T1        T2        T3
 //
+//   P2: This starts a circular pattern with circle with middle in
+//       NOZZLE_CLEAN_CIRCLE_MIDDLE radius of R and stroke count of S.
+//       Before starting the circle nozzle goes to NOZZLE_CLEAN_START_POINT.
+//
 // Caveats: End point Z should use the same value as Start point Z.
 //
 // Attention: This is an EXPERIMENTAL feature, in the future the G-code arguments
@@ -1021,12 +1027,22 @@
 //#define NOZZLE_CLEAN_FEATURE
 
 #if ENABLED(NOZZLE_CLEAN_FEATURE)
-  // Number of pattern repetitions
+  // Default number of pattern repetitions
   #define NOZZLE_CLEAN_STROKES  12
+
+  // Default number of triangles
+  #define NOZZLE_CLEAN_TRIANGLES  3
 
   // Specify positions as { X, Y, Z }
   #define NOZZLE_CLEAN_START_POINT { 30, 30, (Z_MIN_POS + 1)}
   #define NOZZLE_CLEAN_END_POINT   {100, 60, (Z_MIN_POS + 1)}
+
+  // Circular pattern radius
+  #define NOZZLE_CLEAN_CIRCLE_RADIUS 6.5
+  // Circular pattern circle fragments number
+  #define NOZZLE_CLEAN_CIRCLE_FN 10
+  // Middle point of circle
+  #define NOZZLE_CLEAN_CIRCLE_MIDDLE NOZZLE_CLEAN_START_POINT
 
   // Moves the nozzle to the initial position
   #define NOZZLE_CLEAN_GOBACK
