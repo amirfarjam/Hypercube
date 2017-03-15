@@ -24,7 +24,7 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 
 - First you need to uncomment `#define Z_MIN_PROBE_REPEATABILITY_TEST` in your configuration.h
 - `g28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-- `m48 p4 x100 y100 v2 e l2` [M48](http://reprap.org/wiki/G-code#M48:_Measure_Z-Probe_repeatability)
+- `m48 p10 x100 y100 v2 e l2` [M48](http://reprap.org/wiki/G-code#M48:_Measure_Z-Probe_repeatability)
 - Repeat 3 to 5 times to see how much difference in the "Standard Deviation" your probe is reporting.
   - If it's always far away from each test check the tightness of the probe mount etc.. Make sure things aren't loose.
 
