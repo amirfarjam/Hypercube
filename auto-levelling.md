@@ -28,7 +28,6 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 - Repeat 3 to 5 times to see how much difference in the "Standard Deviation" your probe is reporting.
   - If it's always far away from each test check the tightness of the probe mount etc.. Make sure things aren't loose.
 
-
 ## Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 3x3 grid)
 
 **Heat the hotend and bed before doing this**
@@ -39,10 +38,21 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 - `g92 z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero. [G92](http://reprap.org/wiki/G-code#G92:_Set_Position)
 - Now slide paper under the nozzle. We need to get the paper tight but still being able to slide it smoothly under the nozzle
 - Move the nozzle down until you get a tight grip. The paper should be folding in your hand when trying to push it under the nozzle.
-- Now start moving the nozzle up by 0.1mm increments until the paper stays flat when pushing it under the nozzle. That should be the sweet spot.
+- Now start moving the nozzle-down\bed up by 0.1mm increments until the paper stays flat when pushing it under the nozzle. That should be near the sweet spot.
 - Take note of your current Z position and run `m851 z%CALCULATED NUMBER GOES HERE%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
 - `g28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-- `m500` to save the settings if you have EEPROM enabled in your configuration.h. If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
+- `m420 v` to check that the bed leveling data is there. [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
+- `m500` to save these settings if you have EEPROM enabled in your configuration.h. If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
+
+Troubleshooting:
+
+- At start up you should see 
+  ```
+  Auto Bed Leveling:
+  echo:  M420 S0
+  ```
+  If not then check you've enabled AUTO LEVELING in the configuration.
+
 
 Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiverse.com/thing:56671 )
 
