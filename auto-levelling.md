@@ -1,5 +1,7 @@
 # Hypercube Bed Levelling Process
 
+This document was made using Marlin RCBugFix branch at this [commit](https://github.com/MarlinFirmware/Marlin/tree/48925b7298bd1a1abb95b31246326af76d2f1aa8)
+
 ## Setup the bed
 
 Usually done after moving the printer
