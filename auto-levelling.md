@@ -6,7 +6,7 @@ This document was made using Marlin RCBugFix branch at this [commit](https://git
 
 Usually done after moving the printer
 
-- First give all the springs middle tension. (My preference is 15mm between bed and lowest part of the spring. I use a caliper to check each spring)
+- First give all the springs middle tension. (My starting preference is 17mm between bed and lowest part of the spring. I use a steel ruler to check each spring)
 - Now remove any sag between the front and back of the bed. (This will make it much easier)
   - Place spirit level on left side so the spirit bubble it's facing between back and front. Now raise the front to be level with back by turning the left front screw clockwise.
   - Place spirit level on right side so the spirit bubble it's facing between back and front. Now raise the front to be level with back and turning the right front screw clockwise.
