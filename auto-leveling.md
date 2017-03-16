@@ -83,7 +83,7 @@ Examine the first layer and tweek bed springs if needed.
   - Make sure the cable has a bit of slack above the probe because the cable bundle would be able to pull the probe forcing it to wiggle slightly
   - Make sure associated printer parts are also tight and not loose.
   
-Repeatability results comparision
+Repeatability comparision
 
 |Fixed z-endstop| | | | |
 |-|-|-|-|-|
