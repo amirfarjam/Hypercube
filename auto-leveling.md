@@ -27,16 +27,25 @@ Attach Probe
 - Calculate distance between probe tip and nozzle tip
 
   1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling)
-  2. `m851 z0` set the probe z offset to 0.
-  3. `g28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+  2. `M851 Z0` set the probe z offset to 0.
+  3. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
   4. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
-  5. `g92 z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
+  5. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
   6. Slide paper under the nozzle.<br>Move the nozzle down until you get a tight grip.<br>The paper should be at the point where it just starts to folding in your hand.<br>Back off until it starts to slip under the nozzle. 
   7. Take note of the current z position. (It should be below 0)
-  8. Run `m851 z%CALCULATED NUMBER GOES HERE%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
-  9. `g28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+  8. Run `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
+  9. `G28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
   10. Move nozzle to z0 and double check with paper that it's the same
-  11. If all ok run `m500` to save settings
+  11. If all ok run `M500` to save settings
+
+## Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 5x5 grid)
+
+**Heat the hotend and bed before doing this**
+
+    - `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+    - `G29` run auto bed level. [G29](http://reprap.org/wiki/G-code#G29:_Detailed_Z-Probe)
+    - `M500` to save these settings if you have EEPROM enabled in your configuration.h. If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
+
 
 Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiverse.com/thing:56671 )
 
@@ -71,13 +80,13 @@ Examine the first layer and tweek bed springs if needed.
   echo:  M420 S0
   ```
   If not then check you've enabled AUTO LEVELING in the configuration.
-- `m420 v` will show that the bed leveling data is there from the previous run. [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
+- `M420 v` will show that the bed leveling data is there from the previous run. [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
 
 ##### Check the probe's repeatability.
 
 - First you need to uncomment `#define Z_MIN_PROBE_REPEATABILITY_TEST` in your configuration.h
-- `g28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-- `m48 p10 x100 y100 v2 e l2` [M48](http://reprap.org/wiki/G-code#M48:_Measure_Z-Probe_repeatability)
+- `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+- `M48 P10 X100 Y100 V2 E l2` [M48](http://reprap.org/wiki/G-code#M48:_Measure_Z-Probe_repeatability)
 - Repeat 2 to 3 times to see how much difference in the "Standard Deviation" your probe is reporting.
 - If it's always far away from each test check the tightness of the probe mount.
   - Make sure the cable has a bit of slack above the probe because the cable bundle would be able to pull the probe forcing it to wiggle slightly
