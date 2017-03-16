@@ -6,8 +6,7 @@ This document was made using Marlin firmware RCBugFix branch at this [commit](ht
 
 Usually done after moving the printer
 
-- Give all the springs middle tension. My starting preference is 20mm between bed and lowest part of the spring. 
-
+- Give all the springs middle tension. My starting preference is 20mm between bed and lowest part of the spring.<br>
   I use a steel ruler to align each spring.
 
 ## Setup the probe
@@ -21,7 +20,7 @@ Attach Probe
 
 - Put hotend nozzle flat to bed
 - Use a 1mm object to slide under the probe and adjust the probe to be touching the top of the object (I use a steel ruler). Make sure that when you remove the object under the probe that the probe drop down to the bed when you pull away
-- Tighten probe nuts with spanners or pliers if your using the original probe mount.
+- Tighten probe nuts with spanners or pliers if your using the original probe mount.<br>
   I use this [part](http://www.thingiverse.com/thing:2179807) because I find easier to align the probe and allows me to hand tighten the nuts because it's clipped in already. 
 
 - Calculate distance between probe tip and nozzle tip
