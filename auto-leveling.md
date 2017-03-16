@@ -25,17 +25,18 @@ Attach Probe
   I use this [part](http://www.thingiverse.com/thing:2179807) because I find easier to align the probe and allows me to hand tighten the nuts because it's clipped in already. 
 
 - Calculate distance between probe tip and nozzle tip
+
   1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling)
-  1. `m851 z0` set the probe z offset to 0.
-  1. `g28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-  1. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
-  1. `g92 z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
-  1. Slide paper under the nozzle.<br>Move the nozzle down until you get a tight grip.<br>The paper should be at the point where it just starts to folding in your hand.<br>Back off until it starts to slip under the nozzle. 
-  1. Take note of the current z position. (It should be below 0)
-  1. Run `m851 z%CALCULATED NUMBER GOES HERE%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
-  1. `g28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-  1. Move nozzle to z0 and double check with paper that it's the same
-  1. If all ok run `m500` to save settings
+  2. `m851 z0` set the probe z offset to 0.
+  3. `g28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+  4. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
+  5. `g92 z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
+  6. Slide paper under the nozzle.<br>Move the nozzle down until you get a tight grip.<br>The paper should be at the point where it just starts to folding in your hand.<br>Back off until it starts to slip under the nozzle. 
+  7. Take note of the current z position. (It should be below 0)
+  8. Run `m851 z%CALCULATED NUMBER GOES HERE%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
+  9. `g28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+  10. Move nozzle to z0 and double check with paper that it's the same
+  11. If all ok run `m500` to save settings
 
 Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiverse.com/thing:56671 )
 
@@ -78,7 +79,9 @@ Examine the first layer and tweek bed springs if needed.
 - `g28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
 - `m48 p10 x100 y100 v2 e l2` [M48](http://reprap.org/wiki/G-code#M48:_Measure_Z-Probe_repeatability)
 - Repeat 2 to 3 times to see how much difference in the "Standard Deviation" your probe is reporting.
-- If it's always far away from each test check the tightness of the probe mount and make sure the cable has a bit of slack and not pulling the probe on print movements etc.. Make sure things aren't loose.
+- If it's always far away from each test check the tightness of the probe mount.
+  - Make sure the cable has a bit of slack above the probe because the cable bundle would be able to pull the probe forcing it to wiggle slightly
+  - Make sure associated printer parts are also tight and not loose.
   
 Repeatability results comparision
 
