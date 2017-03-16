@@ -42,10 +42,10 @@ Attach Probe
 
 **Heat the hotend and bed before doing this**
 
-    - `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-    - `G29` run auto bed level. [G29](http://reprap.org/wiki/G-code#G29:_Detailed_Z-Probe)
-    - `M500` to save these settings if you have EEPROM enabled in your configuration.h. If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
-
+  - `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+  - `G29` run auto bed level. [G29](http://reprap.org/wiki/G-code#G29:_Detailed_Z-Probe)
+  - `M500` to save these settings if you have EEPROM enabled in your configuration.h.<br>
+    If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
 
 Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiverse.com/thing:56671 )
 
@@ -80,7 +80,7 @@ Examine the first layer and tweek bed springs if needed.
   echo:  M420 S0
   ```
   If not then check you've enabled AUTO LEVELING in the configuration.
-- `M420 v` will show that the bed leveling data is there from the previous run. [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
+- `M420 V` will show that the bed leveling data is there from the previous run. [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
 
 ##### Check the probe's repeatability.
 
