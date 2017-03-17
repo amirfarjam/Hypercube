@@ -23,19 +23,19 @@ Attach Probe
 - Tighten probe nuts with spanners or pliers if your using the original probe mount.<br>
   I use this [part](http://www.thingiverse.com/thing:2179807) because I find easier to align the probe and allows me to hand tighten the nuts because it's clipped in already. 
 
-- Calculate distance between probe tip and nozzle tip
+Calculate distance between probe tip and nozzle tip
 
-  1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling)
-  2. `M851 Z0` set the probe z offset to 0.
-  3. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-  4. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
-  5. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
-  6. Slide paper under the nozzle.<br>Move the nozzle down until you get a tight grip.<br>The paper should be at the point where it just starts to folding in your hand.<br>Back off until it starts to slip under the nozzle. 
-  7. Take note of the current z position. (It should be below 0)
-  8. Run `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
-  9. `G28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-  10. Move nozzle to z0 and double check with paper that it's the same
-  11. If all ok run `M500` to save settings
+1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling)
+2. `M851 Z0` set the probe z offset to 0.
+3. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+4. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
+5. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
+6. Slide paper under the nozzle.<br>Move the nozzle down until you get a tight grip.<br>The paper should be at the point where it just starts to folding in your hand.<br>Back off until it starts to slip under the nozzle. 
+7. Take note of the current z position. (It should be below 0)
+8. Run `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
+9. `G28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+10. Move nozzle to z0 and double check with paper that it's the same
+11. If all ok run `M500` to save settings
 
 ## Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 5x5 grid)
 
@@ -45,6 +45,7 @@ Attach Probe
   - `G29` run auto bed level. [G29](http://reprap.org/wiki/G-code#G29:_Detailed_Z-Probe)
   - `M500` to save these settings if you have EEPROM enabled in your configuration.h.<br>
     If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
+  - `M420 S1` to ensure auto leveling is enabled just before your print starts. [See discussion here for more info](https://github.com/MarlinFirmware/Marlin/issues/5996#issuecomment-287380079)
 
 Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiverse.com/thing:56671 )
 
@@ -78,11 +79,12 @@ Examine the first layer and tweek bed springs if needed.
   Auto Bed Leveling:
   echo:  M420 S0
   ```
-  If not then check you've enabled AUTO LEVELING in the configuration. <br>
-  **Now you need to place `M420 S1` just before your print start to ensure auto leveling is enabled as there seems to be a bug in this version of marlin**
+  If not then check you've enabled AUTO_BED_LEVELING_*** in your configuration.h [Example](https://github.com/pflannery/Hypercube/blob/master/configuration.h#L812)
   
-- `M420 V` will show that the bed leveling data is there from the previous run. [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
+- Check your leveling data has persisted using `M420 V`. This will show that the bed leveling data [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
 
+- Ensure you have `M420 S1` in your start.gcode just before your printer starts to print so to ensure that auto leveling is enabled. [Example](https://github.com/pflannery/Hypercube/blob/master/start.gcode#L18)
+  
 ##### Check the probe's repeatability.
 
 - First you need to uncomment `#define Z_MIN_PROBE_REPEATABILITY_TEST` in your configuration.h
