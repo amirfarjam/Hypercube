@@ -101,6 +101,25 @@ Repeatability comparision
 
 |Probe          | | | | |
 |-|-|-|-|-|
-|Mean: 0.521500 |Min: 0.515 |Max: 0.525 |Range: 0.010|Standard Deviation: 0.003000|
-|Mean: 0.518250 |Min: 0.515 |Max: 0.520 |Range: 0.005|Standard Deviation: 0.001601|
-|Mean: 0.512750 |Min: 0.507 |Max: 0.518 |Range: 0.010|Standard Deviation: 0.003052|
+|Mean: 1.019500 |Min: 1.017 |Max: 1.022 |Range: 0.005|Standard Deviation: 0.002179|
+|Mean: 1.020750 |Min: 1.017 |Max: 1.022 |Range: 0.005|Standard Deviation: 0.001601|
+|Mean: 1.011750 |Min: 1.005 |Max: 1.017 |Range: 0.012|Standard Deviation: 0.003544|
+
+Example output from marlin log
+
+```
+M48 Z-Probe Repeatability Test
+1 of 10: z: 1.020
+2 of 10: z: 1.017
+3 of 10: z: 1.020
+4 of 10: z: 1.022
+5 of 10: z: 1.022
+6 of 10: z: 1.022
+7 of 10: z: 1.020
+8 of 10: z: 1.020
+9 of 10: z: 1.022
+10 of 10: z: 1.020
+Finished!
+Mean: 1.020750 Min: 1.017 Max: 1.022 Range: 0.005
+Standard Deviation: 0.001601
+```
