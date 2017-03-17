@@ -12,7 +12,7 @@ M109 S{material_print_temperature}; heat hotend (wait)
 G92 E0 ;zero the extruded length
 G1 F200 E8 ;extrude 8mm of feed stock
 G92 E0 ;zero the extruded length again
-G1 F9000
+G1 F1800
 
 G28 Z0 ;move Z to min endstops
 
