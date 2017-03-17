@@ -78,7 +78,9 @@ Examine the first layer and tweek bed springs if needed.
   Auto Bed Leveling:
   echo:  M420 S0
   ```
-  If not then check you've enabled AUTO LEVELING in the configuration.
+  If not then check you've enabled AUTO LEVELING in the configuration. <br>
+  **Now you need to place `M420 S1` just before your print start to ensure auto leveling is enabled as there seems to be a bug in this version of marlin**
+  
 - `M420 V` will show that the bed leveling data is there from the previous run. [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
 
 ##### Check the probe's repeatability.
