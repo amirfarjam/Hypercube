@@ -31,10 +31,11 @@ Calculate distance between probe tip and nozzle tip
 4. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
 5. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
 6. Slide paper under the nozzle.<br>Move the nozzle down until you get a tight grip.<br>The paper should be at the point where it just starts to folding in your hand.<br>Back off until it starts to slip under the nozzle. 
-7. Take note of the current z position. (It should be below 0)
-8. Run `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
-9. `G28` home all axes, this resets the g92 command we gave earlier and puts us back at the real zero level. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-10. Move nozzle to z0 and double check with paper that it's the same
+7. `M114` and take note of the current z position, it should be below 0 (Read the first "Z:##" outputted in the logged result).
+8. `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
+9. `G92 Z0` resets the printer to be at Z:0. **This is critical because executing `G28` could cause a crash on screws extruding from the bed.**
+9. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+10. Move nozzle to Z0 and double check with paper that it's the same.
 11. If all ok run `M500` to save settings
 
 ## Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 5x5 grid)
@@ -43,6 +44,7 @@ Calculate distance between probe tip and nozzle tip
 
   - `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
   - `G29` run auto bed level. [G29](http://reprap.org/wiki/G-code#G29:_Detailed_Z-Probe)
+  - Don't move the print head and slide paper under the nozzle and again check the paper grip at Z0
   - `M500` to save these settings if you have EEPROM enabled in your configuration.h.<br>
     If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
   - `M420 S1` to ensure auto leveling is enabled just before your print starts. [See discussion here for more info](https://github.com/MarlinFirmware/Marlin/issues/5996#issuecomment-287380079)
