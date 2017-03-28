@@ -1,6 +1,6 @@
 # Hypercube Bed Leveling Process
 
-This document was made using Marlin firmware RCBugFix branch at this [commit](https://github.com/MarlinFirmware/Marlin/tree/48925b7298bd1a1abb95b31246326af76d2f1aa8)
+At the time of last updating this document, Marlin firmware RCBugFix branch used was [commit](https://github.com/MarlinFirmware/Marlin/tree/8c07ac7f7c6da6d0a7e60581019c0b1e62732bf3)
 
 ## Setup the bed
 
