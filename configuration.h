@@ -231,6 +231,7 @@
  *    60 : 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
  *    66 : 4.7M High Temperature thermistor from Dyze Design
  *    70 : the 100K thermistor found in the bq Hephestos 2
+ *    75 : 100k Generic Silicon Heat Pad with NTC 100K MGB18-104F39050L32 thermistor
  *
  *       1k ohm pullup tables - This is atypical, and requires changing out the 4.7k pullup for 1k.
  *                              (but gives greater accuracy and more stable PID)
@@ -329,9 +330,9 @@
   //#define  DEFAULT_Kd 440
 
  //Hypercube (E3d)
-  #define  DEFAULT_Kp 26.72
-  #define  DEFAULT_Ki 2.92
-  #define  DEFAULT_Kd 61.07
+  #define  DEFAULT_Kp 20.66
+  #define  DEFAULT_Ki 1.69
+  #define  DEFAULT_Kd 62.96
 
 #endif // PIDTEMP
 
@@ -453,17 +454,17 @@
 //#define USE_ZMAX_PLUG
 
 // coarse Endstop Settings
-//#define ENDSTOPPULLUPS // Comment this out (using // at the start of the line) to disable the endstop pullup resistors
+#define ENDSTOPPULLUPS // Comment this out (using // at the start of the line) to disable the endstop pullup resistors
 
 #if DISABLED(ENDSTOPPULLUPS)
   // fine endstop settings: Individual pullups. will be ignored if ENDSTOPPULLUPS is defined
   //#define ENDSTOPPULLUP_XMAX
   //#define ENDSTOPPULLUP_YMAX
   //#define ENDSTOPPULLUP_ZMAX
-  #define ENDSTOPPULLUP_XMIN
-  #define ENDSTOPPULLUP_YMIN
-//  #define ENDSTOPPULLUP_ZMIN
-  #define ENDSTOPPULLUP_ZMIN_PROBE
+  //#define ENDSTOPPULLUP_XMIN
+  //#define ENDSTOPPULLUP_YMIN
+  //#define ENDSTOPPULLUP_ZMIN
+  //#define ENDSTOPPULLUP_ZMIN_PROBE
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
@@ -500,7 +501,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 101 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 100 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -515,7 +516,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 10000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -576,6 +577,10 @@
 //#define Z_PROBE_SLED
 //#define SLED_DOCKING_OFFSET 5 // The extra distance the X axis must travel to pickup the sled. 0 should be fine but you can push it further if you'd like.
 
+//
+// Allen Key Probe is defined in the Delta example configurations.
+//
+
 // Z Probe to nozzle (X,Y) offset, relative to (0, 0).
 // X and Y offsets must be integers.
 //
@@ -594,7 +599,7 @@
 //    O-- FRONT --+
 //  (0,0)
 #define X_PROBE_OFFSET_FROM_EXTRUDER 25  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -2 // Y offset: -front +behind [the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 0 // Y offset: -front +behind [the nozzle]
 #define Z_PROBE_OFFSET_FROM_EXTRUDER 0 // Z offset: -below +above  [the nozzle] M851 to set via gcode
 
 // X and Y axis travel speed (mm/m) between probes
@@ -606,10 +611,6 @@
 // Use double touch for probing
 #define PROBE_DOUBLE_TOUCH
 
-//
-// Allen Key Probe is defined in the Delta example configurations.
-//
-
 // *** PLEASE READ ALL INSTRUCTIONS BELOW FOR SAFETY! ***
 //
 // To continue using the Z-min-endstop for homing, be sure to disable Z_SAFE_HOMING.
@@ -617,8 +618,7 @@
 //
 // To use a separate Z probe, your board must define a Z_MIN_PROBE_PIN.
 //
-// For a servo-based Z probe, you must set up servo support below, including
-// NUM_SERVOS, Z_ENDSTOP_SERVO_NR and Z_SERVO_ANGLES.
+// For a servo-based Z probe, just set Z_ENDSTOP_SERVO_NR and Z_SERVO_ANGLES above.
 //
 // - RAMPS 1.3/1.4 boards may be able to use the 5V, GND, and Aux4->D32 pin.
 // - Use 5V for powered (usu. inductive) sensors.
@@ -676,8 +676,8 @@
 //
 // For M851 give a range for adjusting the Z probe offset
 //
-#define Z_PROBE_OFFSET_RANGE_MIN -20
-#define Z_PROBE_OFFSET_RANGE_MAX 20
+#define Z_PROBE_OFFSET_RANGE_MIN -3
+#define Z_PROBE_OFFSET_RANGE_MAX 3
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 // :{ 0:'Low', 1:'High' }
@@ -716,7 +716,7 @@
 
 // @section homing
 
-#define Z_HOMING_HEIGHT 3  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_HOMING_HEIGHT 4  // (in mm) Minimal z height before homing (G28) for Z clearance above the bed, clamps, ...
                              // Be sure you have this distance over your Z_MAX_POS in case.
 
 // ENDSTOP SETTINGS:
@@ -726,18 +726,20 @@
 #define Y_HOME_DIR -1
 #define Z_HOME_DIR -1
 
-#define min_software_endstops false // If true, axis won't move to coordinates less than HOME_POS.
-#define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
-
 // @section machine
 
 // Travel limits after homing (units are in mm)
 #define X_MIN_POS -25
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS 215
-#define Y_MAX_POS 215
+#define X_MAX_POS 205
+#define Y_MAX_POS 202
 #define Z_MAX_POS 155
+
+// If enabled, axes won't move below MIN_POS in response to movement commands.
+//#define MIN_SOFTWARE_ENDSTOPS
+// If enabled, axes won't move above MAX_POS in response to movement commands.
+#define MAX_SOFTWARE_ENDSTOPS
 
 /**
  * Filament Runout Sensor
@@ -755,68 +757,68 @@
 #endif
 
 //===========================================================================
-//============================ Mesh Bed Leveling ============================
-//===========================================================================
-
-//#define MESH_BED_LEVELING    // Enable mesh bed leveling.
-
-#if ENABLED(MESH_BED_LEVELING)
-  #define MESH_INSET 25        // Mesh inset margin on print area
-  #define MESH_NUM_X_POINTS 3  // Don't use more than 7 points per axis, implementation limited.
-  #define MESH_NUM_Y_POINTS 3
-  #define MESH_HOME_SEARCH_Z 4  // Z after Home, bed somewhere below but above 0.0.
-
-  //#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest at origin [0,0,0]
-
-  //#define MANUAL_BED_LEVELING  // Add display menu option for bed leveling.
-
-  #if ENABLED(MANUAL_BED_LEVELING)
-    #define MBL_Z_STEP 0.025  // Step size while manually probing Z axis.
-  #endif  // MANUAL_BED_LEVELING
-
-  // Gradually reduce leveling correction until a set height is reached,
-  // at which point movement will be level to the machine's XY plane.
-  // The height can be set with M420 Z<height>
-  #define ENABLE_LEVELING_FADE_HEIGHT
-
-#endif  // MESH_BED_LEVELING
-
-//===========================================================================
-//============================ Auto Bed Leveling ============================
+//=============================== Bed Leveling ==============================
 //===========================================================================
 // @section bedlevel
 
 /**
- * Select one form of Auto Bed Leveling below.
+ * Choose one of the options below to enable G29 Bed Leveling. The parameters
+ * and behavior of G29 will change depending on your selection.
  *
- *  If you're also using the Probe for Z Homing, it's
- *  highly recommended to enable Z_SAFE_HOMING also!
+ *  If using a Probe for Z Homing, enable Z_SAFE_HOMING also!
  *
- * - 3POINT
+ * - AUTO_BED_LEVELING_3POINT
  *   Probe 3 arbitrary points on the bed (that aren't collinear)
  *   You specify the XY coordinates of all 3 points.
  *   The result is a single tilted plane. Best for a flat bed.
  *
- * - LINEAR
+ * - AUTO_BED_LEVELING_LINEAR
  *   Probe several points in a grid.
  *   You specify the rectangle and the density of sample points.
  *   The result is a single tilted plane. Best for a flat bed.
  *
- * - BILINEAR
+ * - AUTO_BED_LEVELING_BILINEAR
  *   Probe several points in a grid.
  *   You specify the rectangle and the density of sample points.
  *   The result is a mesh, best for large or uneven beds.
+ *
+ * - AUTO_BED_LEVELING_UBL (Unified Bed Leveling)
+ *   A comprehensive bed leveling system combining the features and benefits
+ *   of other systems. UBL also includes integrated Mesh Generation, Mesh
+ *   Validation and Mesh Editing systems. Currently, UBL is only checked out
+ *   for Cartesian Printers. That said, it was primarily designed to correct
+ *   poor quality Delta Printers. If you feel adventurous and have a Delta,
+ *   please post an issue if something doesn't work correctly. Initially,
+ *   you will need to set a reduced bed size so you have a rectangular area
+ *   to test on.
+ *
+ * - MESH_BED_LEVELING
+ *   Probe a grid manually
+ *   The result is a mesh, suitable for large or uneven beds. (See BILINEAR.)
+ *   For machines without a probe, Mesh Bed Leveling provides a method to perform
+ *   leveling in steps so you can manually adjust the Z height at each grid-point.
+ *   With an LCD controller the process is guided step-by-step.
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
 #define AUTO_BED_LEVELING_BILINEAR
+//#define MESH_BED_LEVELING
+//#define AUTO_BED_LEVELING_UBL
+
 
 /**
  * Enable detailed logging of G28, G29, M48, etc.
  * Turn on with the command 'M111 S32'.
  * NOTE: Requires a lot of PROGMEM!
  */
-// #define DEBUG_LEVELING_FEATURE
+//#define DEBUG_LEVELING_FEATURE
+
+#if ENABLED(MESH_BED_LEVELING) || ENABLED(AUTO_BED_LEVELING_BILINEAR) || ENABLED(AUTO_BED_LEVELING_UBL)
+  // Gradually reduce leveling correction until a set height is reached,
+  // at which point movement will be level to the machine's XY plane.
+  // The height can be set with M420 Z<height>
+  #define ENABLE_LEVELING_FADE_HEIGHT
+#endif
 
 #if ENABLED(AUTO_BED_LEVELING_LINEAR) || ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
@@ -825,8 +827,8 @@
   #define ABL_GRID_MAX_POINTS_Y ABL_GRID_MAX_POINTS_X
 
   // Set the boundaries for probing (where the probe can reach).
-  #define PROBE_BED_INSET 26
-  #define LEFT_PROBE_BED_POSITION PROBE_BED_INSET + X_MIN_POS
+  #define PROBE_BED_INSET 20
+  #define LEFT_PROBE_BED_POSITION X_MIN_POS + X_PROBE_OFFSET_FROM_EXTRUDER + PROBE_BED_INSET
   #define RIGHT_PROBE_BED_POSITION X_MAX_POS - PROBE_BED_INSET
   #define FRONT_PROBE_BED_POSITION PROBE_BED_INSET
   #define BACK_PROBE_BED_POSITION Y_MAX_POS - PROBE_BED_INSET
@@ -839,15 +841,10 @@
 
   #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
-    // Gradually reduce leveling correction until a set height is reached,
-    // at which point movement will be level to the machine's XY plane.
-    // The height can be set with M420 Z<height>
-    #define ENABLE_LEVELING_FADE_HEIGHT
-
-    // 
+    //
     // Experimental Subdivision of the grid by Catmull-Rom method.
     // Synthesizes intermediate points to produce a more detailed mesh.
-    // 
+    //
     //#define ABL_BILINEAR_SUBDIVISION
     #if ENABLED(ABL_BILINEAR_SUBDIVISION)
       // Number of subdivisions between probe points
@@ -867,7 +864,43 @@
   #define ABL_PROBE_PT_3_X 170
   #define ABL_PROBE_PT_3_Y 20
 
-#endif
+#elif ENABLED(AUTO_BED_LEVELING_UBL)
+
+  //===========================================================================
+  //========================= Unified Bed Leveling ============================
+  //===========================================================================
+
+  #define UBL_MESH_INSET 1          // Mesh inset margin on print area
+  #define UBL_MESH_NUM_X_POINTS 10  // Don't use more than 15 points per axis, implementation limited.
+  #define UBL_MESH_NUM_Y_POINTS 10
+  #define UBL_PROBE_PT_1_X 39       // These set the probe locations for when UBL does a 3-Point leveling
+  #define UBL_PROBE_PT_1_Y 180      // of the mesh.
+  #define UBL_PROBE_PT_2_X 39
+  #define UBL_PROBE_PT_2_Y 20
+  #define UBL_PROBE_PT_3_X 180
+  #define UBL_PROBE_PT_3_Y 20
+  #define UBL_MESH_EDIT_ENABLED     // Enable G26 mesh editing
+
+#elif ENABLED(MESH_BED_LEVELING)
+
+  //===========================================================================
+  //=================================== Mesh ==================================
+  //===========================================================================
+
+  #define MESH_INSET 10          // Mesh inset margin on print area
+  #define MESH_NUM_X_POINTS 3    // Don't use more than 7 points per axis, implementation limited.
+  #define MESH_NUM_Y_POINTS 3
+
+  //#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest Z at Z_MIN_POS
+
+  //#define MANUAL_BED_LEVELING  // Add display menu option for bed leveling.
+  #define MANUAL_PROBE_Z_RANGE 4 // Z Range centered on Z_MIN_POS for LCD Z adjustment
+
+  #if ENABLED(MANUAL_BED_LEVELING)
+    #define MBL_Z_STEP 0.025     // Step size while manually probing Z axis.
+  #endif
+
+#endif // BED_LEVELING
 
 /**
  * Commands to execute at the end of G29 probing.
@@ -885,7 +918,7 @@
 // For DELTA this is the top-center of the Cartesian print volume.
 //#define MANUAL_X_HOME_POS 0
 //#define MANUAL_Y_HOME_POS 0
-//#define MANUAL_Z_HOME_POS 0 // Distance between the nozzle to printbed after homing
+//#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -898,7 +931,7 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2) - X_MIN_POS    // X point for Z homing when homing all axis (G28).
+  #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
   #define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
 #endif
 
@@ -1409,6 +1442,12 @@
 // at zero value, there are 128 effective control positions.
 #define SOFT_PWM_SCALE 0
 
+// If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
+// be used to mitigate the associated resolution loss. If enabled,
+// some of the PWM cycles are stretched so on average the wanted
+// duty cycle is attained.
+//#define SOFT_PWM_DITHER
+
 // Temperature status LEDs that display the hotend and bed temperature.
 // If all hotends and bed temperature and temperature setpoint are < 54C then the BLUE led is on.
 // Otherwise the RED led is on. There is 1C hysteresis.
@@ -1449,7 +1488,7 @@
 //
 //#define NUM_SERVOS 3 // Servo index starts with 0 for M280 command
 
-// Delay (in microseconds) before the next move will start, to give the servo time to reach its target angle.
+// Delay (in milliseconds) before the next move will start, to give the servo time to reach its target angle.
 // 300ms is a good value but you can try less delay.
 // If the servo can't reach the requested position, increase it.
 #define SERVO_DELAY 300
