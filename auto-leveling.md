@@ -16,14 +16,14 @@ Usually done after moving the printer
 Some work at 5V but from my experience it's best to run them according to their spec levels. 
 You can use a voltage divider to limit a higher voltage down to 5v if need be.
 
-Attach Probe
+##### Attach Probe
 
 - Put hotend nozzle flat to bed
 - Use a 1mm object to slide under the probe and adjust the probe to be touching the top of the object (I use a steel ruler). Make sure that when you remove the object under the probe that the probe drop down to the bed when you pull away
 - Tighten probe nuts with spanners or pliers if your using the original probe mount.<br>
   I use this [part](http://www.thingiverse.com/thing:2179807) because I find easier to align the probe and allows me to hand tighten the nuts because it's clipped in already. 
 
-Calculate distance between probe tip and nozzle tip
+##### Calculate distance between probe tip and nozzle tip
 
 1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling)
 2. `M851 Z0` set the probe z offset to 0.
