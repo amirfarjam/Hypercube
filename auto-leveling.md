@@ -26,17 +26,18 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 ##### Calculate distance between probe tip and nozzle tip
 
 1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling)
-2. `M851 Z0` set the probe z offset to 0.
-3. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-4. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
-5. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
-6. Slide paper under the nozzle.<br>Move the nozzle down until you get a tight grip.<br>The paper should be at the point where it just starts to folding in your hand.<br>Back off until it starts to slip under the nozzle. 
-7. `M114` and take note of the current z position, it should be below 0 (Read the first "Z:##" outputted in the logged result).
-8. `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
-9. `G92 Z0` resets the printer to be at Z:0. **This is critical because executing `G28` could cause a crash on screws extruding from the bed.**
-9. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-10. Move nozzle to Z0 and double check with paper that it's the same.
-11. If all ok run `M500` to save settings
+1. `M851 Z0` set the probe z offset to 0.
+1. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+1. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
+1. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
+1. Move the nozzle down until it's almost touching the bed using a feeler gauge like [this](http://www.ebay.co.uk/itm/26-BLADE-FEELER-GAUGE-SET-GUITAR-NECK-RELIEF-STRING-HEIGHT-LUTHIER-TOOL-GUAGE-/162403994221?hash=item25d0084a6d:g:0QMAAOSw54xUW2mG) or paper.<br> Knowing your gauge height will help with your initial print layer height (See calibration print settings below). I use a 0.04mm gauge blade. The paper I've used in the past was around 0.1mm.
+1. Bring the nozzle down until you can't slide the feeler gauge under the nozzle. Now raise the nozzle until the feeler gauge can be slid in and out underneath the nozzle without being caught by it.
+1. `M114` and take note of the current z position, it should be below 0 (Read the first "Z:##" outputted in the logged result).
+1. `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
+1. `G92 Z0` resets the printer to be at Z:0. **This is critical because executing `G28` could cause a crash on screws extruding from the bed.**
+1. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
+1. Move nozzle to Z0 and double check with paper that it's the same.
+1. If all ok run `M500` to save settings
 
 ## Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 5x5 grid)
 
@@ -44,18 +45,19 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 
   - `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
   - `G29` run auto bed level. [G29](http://reprap.org/wiki/G-code#G29:_Detailed_Z-Probe)
-  - Don't move the print head and slide paper under the nozzle and again check the paper grip at Z0
   - `M500` to save these settings if you have EEPROM enabled in your configuration.h.<br>
     If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
-  - `M420 S1` to ensure auto leveling is enabled just before your print starts. [See discussion here for more info](https://github.com/MarlinFirmware/Marlin/issues/5996#issuecomment-287380079)
+  - `M420 S1` needs to be run just before each print (i.e. last line of your start.gcode). [See discussion here for more info](https://github.com/MarlinFirmware/Marlin/issues/5996#issuecomment-287380079)
 
-Try printing a calibration cube! (I use a 40mm cube from here http://www.thingiverse.com/thing:56671 )
+##### Print a calibration model
+
+I use a 40mm cube from here http://www.thingiverse.com/thing:56671
 
 |Property|Value|Notes|
 |--------|-----|-----|
 |Line Width|0.4mm|For a 0.4mm nozzle|
-|Initial Layer Height|0.12mm| Check out the [Prusa calculator](http://www.prusaprinters.org/calculator#layerheight) for your layer height settings|
-|Layer Height|0.2mm||
+|Initial Layer Height|0.4mm|This should be based on your nozzle size and gauge height.<br>For this print, using Paper at 0.1mm would make it best to use around 0.3mm.<br>Using a gauge blade at 0.04 would make it best around 0.4mm|
+|Layer Height|0.2mm|Check out the [Prusa calculator](http://www.prusaprinters.org/calculator#layerheight) for your layer height settings|
 |Top\Bottom Layer Count|2|Layer height * Top\Bottom Layer Count = 0.4mm|
 |Wall Line Count|1|Line Width * Wall Line Count = 0.4mm|
 |Infill|0%||
