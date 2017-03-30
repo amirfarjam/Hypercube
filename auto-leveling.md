@@ -30,7 +30,7 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 1. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
 1. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
 1. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
-1. Move the nozzle down until it's almost touching the bed using a feeler gauge like [this](http://www.ebay.co.uk/itm/26-BLADE-FEELER-GAUGE-SET-GUITAR-NECK-RELIEF-STRING-HEIGHT-LUTHIER-TOOL-GUAGE-/162403994221?hash=item25d0084a6d:g:0QMAAOSw54xUW2mG) or paper.<br> Knowing your gauge height will help with your initial print layer height (See calibration print settings below). I use a 0.04mm gauge blade. The paper I've used in the past was around 0.1mm.
+1. Move the nozzle down until it's almost touching the bed using a feeler gauge like [this](http://www.ebay.co.uk/itm/26-BLADE-FEELER-GAUGE-SET-GUITAR-NECK-RELIEF-STRING-HEIGHT-LUTHIER-TOOL-GUAGE-/162403994221?hash=item25d0084a6d:g:0QMAAOSw54xUW2mG) or paper.<br> Knowing your gauge height will help with your initial print layer height (See calibration print settings below).The paper I've used in the past was around 0.1mm.
 1. Bring the nozzle down until you can't slide the feeler gauge under the nozzle. Now raise the nozzle until the feeler gauge can be slid in and out underneath the nozzle without being caught by it.
 1. `M114` and take note of the current z position, it should be below 0 (Read the first "Z:##" outputted in the logged result).
 1. `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
@@ -56,7 +56,7 @@ I use a 40mm cube from here http://www.thingiverse.com/thing:56671
 |Property|Value|Notes|
 |--------|-----|-----|
 |Line Width|0.4mm|For a 0.4mm nozzle|
-|Initial Layer Height|0.4mm|This should be based on your nozzle size and gauge height.<br>For this print, using Paper at 0.1mm would make it best to use around 0.3mm.<br>Using a gauge blade at 0.04 would make it best around 0.4mm|
+|Initial Layer Height|0.3mm|This should be no more than NozzleSize - GaugeHeight.<br>Using a gauge height of 0.1mm seems to work best for 0.2-0.3mm initial layers<br>Just have to remember that the model being printed can be affected by this setting, i.e. the [3Dbenchy](http://www.thingiverse.com/thing:763622) model text on the bottom starts at 0mm and finishes at 0.3mm height so you will need your initial layer to be at least less than 0.3mm (say 0.2mm) to include the text in your print!|
 |Layer Height|0.2mm|Check out the [Prusa calculator](http://www.prusaprinters.org/calculator#layerheight) for your layer height settings|
 |Top\Bottom Layer Count|2|Layer height * Top\Bottom Layer Count = 0.4mm|
 |Wall Line Count|1|Line Width * Wall Line Count = 0.4mm|
@@ -85,7 +85,7 @@ Examine the first layer and tweek bed springs if needed.
   ```
   If not then check you've enabled AUTO_BED_LEVELING_*** in your configuration.h [Example](https://github.com/pflannery/Hypercube/blob/master/configuration.h#L812)
   
-- Check your leveling data has persisted using `M420 V`. This will show that the bed leveling data [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
+- Check your leveling data has persisted using `M420 V`. This will show that the bed leveling data exists [M420](http://reprap.org/wiki/G-code#M420:_Enable.2FDisable_Mesh_Leveling_.28Marlin.29)
 
 - Ensure you have `M420 S1` in your start.gcode just before your printer starts to print so to ensure that auto leveling is enabled. [Example](https://github.com/pflannery/Hypercube/blob/master/start.gcode#L18)
   
