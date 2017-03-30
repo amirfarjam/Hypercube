@@ -2,6 +2,8 @@
 
 At the time of last updating this document, Marlin firmware RCBugFix branch used was [commit](https://github.com/MarlinFirmware/Marlin/tree/8c07ac7f7c6da6d0a7e60581019c0b1e62732bf3)
 
+I used Repetier Host to create the current edition of this document.
+
 ## Setup the bed
 
 Usually done after moving the printer
@@ -25,10 +27,10 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 
 ##### Calculate distance between probe tip and nozzle tip
 
-1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling)
+1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling, I tend to pull it out of the hotend while I do this.)
 1. `M851 Z0` set the probe z offset to 0.
 1. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-1. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html) 
+1. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html). Repetier host's control uses relative movements by running G91 before moving
 1. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
 1. Move the nozzle down until it's almost touching the bed using a feeler gauge like [this](http://www.ebay.co.uk/itm/26-BLADE-FEELER-GAUGE-SET-GUITAR-NECK-RELIEF-STRING-HEIGHT-LUTHIER-TOOL-GUAGE-/162403994221?hash=item25d0084a6d:g:0QMAAOSw54xUW2mG) or paper.<br> Knowing your gauge height will help with your initial print layer height (See calibration print settings below).The paper I've used in the past was around 0.1mm.
 1. Bring the nozzle down until you can't slide the feeler gauge under the nozzle. Now raise the nozzle until the feeler gauge can be slid in and out underneath the nozzle without being caught by it.
@@ -49,6 +51,8 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
     If you dont use EEPROM then you will need to auto level each time you restart your printer [M500](http://reprap.org/wiki/G-code#M500:_Store_parameters_in_EEPROM)
   - `M420 S1` needs to be run just before each print (i.e. last line of your start.gcode). [See discussion here for more info](https://github.com/MarlinFirmware/Marlin/issues/5996#issuecomment-287380079)
 
+**Bare in mind that after you have created mesh level data with G29 and you ever change the z offset using M851 Marlin will now automatically update the mesh data.**
+
 ##### Print a calibration model
 
 I use a 40mm cube from here http://www.thingiverse.com/thing:56671
@@ -66,7 +70,9 @@ I use a 40mm cube from here http://www.thingiverse.com/thing:56671
 |Skirt Line Count|1||
 |Skirt Distance|8mm||
 
-Examine the first layer and tweek bed springs if needed.
+Examine the first layer and tweek the z offset with M851. Increments of 0.2-0.4 usually works for me. But it will depend on the print result. 
+
+At worst change bed springs but I've found I dont need this with auto leveling.
 
 ### Troubleshooting
 
@@ -74,8 +80,8 @@ Examine the first layer and tweek bed springs if needed.
 
   - Use the auto level data produced by the probe and adjust the springs to help level your bed if the report shows a large difference. 
 
-    My bed is flat but I usually find a 2-3mm difference between the back and the front of the bed. I raise the back upwards (anti-clockwise turning) to close this gap. I then run the auto leveling procedure again. Repeat if I need to until I've got it around 0.5-0.8mm difference between the biggest corner gaps.
-
+    My bed is flat but I usually find a 1-2mm difference between the back and the front of the bed. I raise the back upwards (anti-clockwise turning) to close this gap. I then run the auto leveling procedure again. Repeat if I need to until I've got it around 0.5-0.8mm difference between the biggest corner gaps.
+    
 ##### Check auto leveling is working
 
 - At printer start-up you should see 
@@ -91,13 +97,13 @@ Examine the first layer and tweek bed springs if needed.
   
 ##### Check the probe's repeatability.
 
-- First you need to uncomment `#define Z_MIN_PROBE_REPEATABILITY_TEST` in your configuration.h
+- First you need to uncomment `#define Z_MIN_PROBE_REPEATABILITY_TEST` in your configuration.h and reflash your firmware
 - `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
 - `M48 P10 X100 Y100 V2 E l2` [M48](http://reprap.org/wiki/G-code#M48:_Measure_Z-Probe_repeatability)
 - Repeat 2 to 3 times to see how much difference in the "Standard Deviation" your probe is reporting.
 - If it's always far away from each test check the tightness of the probe mount.
-  - Make sure the cable has a bit of slack above the probe because the cable bundle would be able to pull the probe forcing it to wiggle slightly
-  - Make sure associated printer parts are also tight and not loose.
+  - Make sure the cable has a bit of slack above the probe because the cable bundle may be able to pull the probe around forcing it to wiggle out of position.
+  - Make sure associated printer parts are also tight and not wiggling from cables.
   
 Repeatability comparision
 
