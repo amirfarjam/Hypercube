@@ -1,5 +1,11 @@
 # Hypercube
 
+This is a place for my Hypercube 3D Printer setup. It contains the following
+
+- Configuration settings for Marlin
+- Some instruction documentation (so I don't forget :)
+- Start and end gcode used for my prints
+- STL models currently used in my build (uploading soon :)
 
 ##### Attribution
 
