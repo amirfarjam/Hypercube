@@ -56,7 +56,7 @@ I use a 40mm cube from here http://www.thingiverse.com/thing:56671
 |Property|Value|Notes|
 |--------|-----|-----|
 |Line Width|0.4mm|For a 0.4mm nozzle|
-|Initial Layer Height|0.3mm|This should be no more than NozzleSize - GaugeHeight.<br>Using a gauge height of 0.1mm seems to work best for 0.2-0.3mm initial layers<br>Just have to remember that the model being printed can be affected by this setting, i.e. the [3Dbenchy](http://www.thingiverse.com/thing:763622) model text on the bottom starts at 0mm and finishes at 0.3mm height so you will need your initial layer to be at least less than 0.3mm (say 0.2mm) to include the text in your print!|
+|Initial Layer Height|0.3mm|This should be no more than NozzleSize - GaugeHeight.<br>Using a gauge height of 0.1mm seems to work best with a 0.3mm initial layer height|
 |Layer Height|0.2mm|Check out the [Prusa calculator](http://www.prusaprinters.org/calculator#layerheight) for your layer height settings|
 |Top\Bottom Layer Count|2|Layer height * Top\Bottom Layer Count = 0.4mm|
 |Wall Line Count|1|Line Width * Wall Line Count = 0.4mm|
