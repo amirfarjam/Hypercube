@@ -4,6 +4,19 @@ At the time of last updating this document, Marlin firmware RCBugFix branch used
 
 I used Repetier Host to create the current edition of this document.
 
+**Overview**
+
+  - [Setup the bed](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#setup-the-bed)
+  - [Setup the probe](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#setup-the-probe)
+    - [Attach the proble](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#attach-probe)
+    - [Calculate distance between probe tip and nozzle tip](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#calculate-distance-between-probe-tip-and-nozzle-tip)
+  - [Generate auto level mesh](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#auto-level-the-bed-using-auto_bed_leveling_bilinear-5x5-grid)
+  - [Print a calibration model](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#print-a-calibration-model)
+  - [Troubleshooting](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#troubleshooting)
+    - [Leveling the bed](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#leveling-the-bed)
+    - [Check auto leveling is working](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#check-auto-leveling-is-working)
+    - [Check probe repeatability](https://github.com/pflannery/Hypercube/blob/master/auto-leveling.md#check-the-probes-repeatability)
+
 ## Setup the bed
 
 Usually done after moving the printer
