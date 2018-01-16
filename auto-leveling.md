@@ -43,18 +43,16 @@ You can use a voltage divider to limit a higher voltage down to 5v if need be.
 1. Heat the nozzle and bed for material temperature (Just be mindful of any filament getting in the way when leveling, I tend to pull it out of the hotend while I do this.)
 1. `M851 Z0` set the probe z offset to 0.
 1. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-1. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html). Repetier host's control uses relative movements by running G91 before moving
-1. `G92 Z5` give yourself some extra room so we can keep moving the nozzle down below what it thinks is zero.
+1. Move the nozzle to the centre of the bed using a control or [G0 or G1](http://marlinfw.org/docs/gcode/G000-G001.html).
 1. Move the nozzle down until it's almost touching the bed using a feeler gauge like [this](http://www.ebay.co.uk/itm/26-BLADE-FEELER-GAUGE-SET-GUITAR-NECK-RELIEF-STRING-HEIGHT-LUTHIER-TOOL-GUAGE-/162403994221?hash=item25d0084a6d:g:0QMAAOSw54xUW2mG) or paper.<br> Knowing your gauge height will help with your initial print layer height (See calibration print settings below).The paper I've used in the past was around 0.1mm.
 1. Bring the nozzle down until you can't slide the feeler gauge under the nozzle. Now raise the nozzle until the feeler gauge can be slid in and out underneath the nozzle without being caught by it.
-1. `M114` and take note of the current z position, it should be below 0 (Read the first "Z:##" outputted in the logged result).
+1. `M114` and take note of the current z position, it can sometimes be below 0 (Read the first "Z:##" outputted in the logged result).
 1. `M851 z%YOUR CALCULATED Z OFFSET%`. [M851](http://reprap.org/wiki/G-code#M851:_Set_Z-Probe_Offset)
-1. `G92 Z0` resets the printer to be at Z:0. **This is critical because executing `G28` could cause a crash on screws extruding from the bed.**
 1. `G28` home all axes. [G28](http://reprap.org/wiki/G-code#G28:_Move_to_Origin_.28Home.29)
-1. Move nozzle to Z0 and double check with paper that it's the same.
+1. Move nozzle to Z0 and double check with paper that it's the same. If not go back to step 5.
 1. If all ok run `M500` to save settings
 
-## Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 5x5 grid)
+## Auto level the bed (using AUTO_BED_LEVELING_BILINEAR, 4x4 grid)
 
 **Heat the hotend and bed before doing this**
 
